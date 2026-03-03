@@ -1,0 +1,62 @@
+{
+  "pluginAlias": "JVCCompuLink",
+  "pluginType": "platform",
+  "singular": true,
+  "headerDisplay": "Control JVC CompuLink-equipped audio devices via Raspberry Pi GPIO",
+  "footerDisplay": "Requires pigpio C library on Raspberry Pi. GPIO wiring: pin -> 3.5mm tip, GND -> 3.5mm sleeve.",
+  "schema": {
+    "type": "object",
+    "required": ["name", "gpioPin"],
+    "properties": {
+      "name": {
+        "title": "Platform Name",
+        "type": "string",
+        "default": "JVC CompuLink"
+      },
+      "gpioPin": {
+        "title": "GPIO Pin (BCM numbering)",
+        "type": "integer",
+        "default": 17,
+        "minimum": 0,
+        "maximum": 27,
+        "description": "BCM GPIO pin number connected to the CompuLink 3.5mm tip"
+      },
+      "invertSignal": {
+        "title": "Invert Signal",
+        "type": "boolean",
+        "default": false,
+        "description": "Enable if using an NPN transistor level shifter (inverts the signal)"
+      },
+      "commands": {
+        "title": "Commands to Expose",
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "title": "Switch Name",
+              "type": "string",
+              "description": "Display name in HomeKit (e.g., 'Tape Play')"
+            },
+            "code": {
+              "title": "Command Code",
+              "type": "string",
+              "description": "Hex command code (e.g., '0x20' for Play)",
+              "pattern": "^0x[0-9a-fA-F]{1,2}$"
+            }
+          },
+          "required": ["name", "code"]
+        },
+        "default": [
+          { "name": "Tape Play", "code": "0x20" },
+          { "name": "Tape Stop", "code": "0x22" },
+          { "name": "Tape Pause", "code": "0x25" },
+          { "name": "Tape FF", "code": "0x23" },
+          { "name": "Tape Rewind", "code": "0x24" },
+          { "name": "Tape Track Fwd", "code": "0x2B" },
+          { "name": "Tape Track Rev", "code": "0x2C" }
+        ]
+      }
+    }
+  }
+}

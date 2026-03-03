@@ -1,0 +1,37 @@
+{
+  "name": "homebridge-jvc-compulink",
+  "displayName": "JVC CompuLink",
+  "version": "1.0.0",
+  "description": "Control JVC CompuLink audio equipment via Raspberry Pi GPIO and HomeKit",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/index.js",
+  "engines": {
+    "node": "^20.18.0 || ^22.10.0",
+    "homebridge": "^1.8.0 || ^2.0.0-beta.0"
+  },
+  "keywords": [
+    "homebridge-plugin",
+    "jvc",
+    "compulink",
+    "cassette",
+    "tape-deck",
+    "gpio",
+    "raspberry-pi"
+  ],
+  "scripts": {
+    "build": "rimraf ./dist && tsc",
+    "watch": "npm run build && npm link && nodemon",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "pigpio": "^3.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "homebridge": "^2.0.0",
+    "typescript": "^5.7.0",
+    "rimraf": "^6.0.0",
+    "nodemon": "^3.1.0"
+  }
+}
